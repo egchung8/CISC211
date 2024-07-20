@@ -10,7 +10,7 @@ section .text
  increase_even:
      add eax, 2
      mov [evennum], eax      ;load value into evennum
-     cmp eax, 20             ;check if number is <=20
+     cmp eax, 20             ;compare values
      jl increase_even        ;if <20 start over
 
      mov eax, 1              ;sys_exit
