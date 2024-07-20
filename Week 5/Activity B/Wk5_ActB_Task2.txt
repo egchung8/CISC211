@@ -1,0 +1,22 @@
+;Week 5 Activity A Task #2
+;ths program generates a sequence of even numbers up to 20
+
+section .text
+    global _start
+
+ _start:
+     mov eax, 0     ;start from 0
+
+ increase_even:
+     add eax, 2
+     mov [evennum], eax      ;load value into evennum
+     cmp eax, 20             ;check if number is <20
+     jl increase_even        ;if <20 start over
+
+     mov eax, 1              ;sys_exit
+     int 0x80
+
+
+
+segment .bss
+    evennum resb 1

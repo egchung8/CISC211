@@ -1,0 +1,16 @@
+;generate a counter using ebx register
+
+section .text
+        global _start
+
+_start:
+        mov ebx, 10  ;ebx is a counter register
+
+label:
+    inc eax
+    dec ebx
+    cmp ebx, 0
+    jg label
+
+    mov eax,1
+    int 0x80

@@ -1,0 +1,31 @@
+; Question 3: define array with length 4 and type integer, find the largest element in the array
+
+section .text
+    global _start
+
+_start:
+        mov eax,3       ;index counter = array size -1
+        mov ecx,array   ;move array's address from the memory to the register
+        mov ebx,[ecx]   ;add content of the array's first element to ebx
+
+
+search:
+        add ecx,4       ;fetch the next element in array
+        cmp ebx,[ecx]   ;compare current value to next value in ecx
+        jge greater     ;if ebx > ecx jump to greater
+        mov ebx,[ecx]   ;store larger value in ebx, if ecx>ebx replace current value in ebx
+
+greater:
+        dec eax         ;if ebx currently holds largest value continue through array
+        jnz search
+
+exit:
+        mov [largest], ebx
+        mov eax,1
+        int 0x80
+
+segment .bss
+        largest resb 4
+
+section .data
+        array dd 5,10,15,1
