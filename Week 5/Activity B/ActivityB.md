@@ -1,7 +1,9 @@
 # Activity B
 
+## Flowcharts
+
 ## Task 1
-```
+```assembly
 ;generate a counter using ebx register
 
 section .text
@@ -19,36 +21,43 @@ label:
     mov eax,1
     int 0x80
 ```
+In the example counter code using loops, I noticed that as EAX is being increased by 1 in each loop, ECX is decreasing by 1. If I tried to use this code but just change ECX to EBX it will not work as ECX will be the register's whose counter value is decreasing and not EBX. This results in an infinite loop since ebx will never reach 0. This is because loop instructions only use ECX as the counter register.
 
 
 ## Task 2
-```
-;Week 5 Activity A Task #2
-;ths program generates a sequence of even numbers up to 20
+```assembly
+;calculate final number of the first 10 fibonacci numbers starting from 0
+; 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
+; Fib Sequence: F(N) = F(N-1) + F(N-2)
+
 
 section .text
     global _start
-
+    
  _start:
-     mov eax, 0     ;start from 0
-
- increase_even:
-     add eax, 2
-     mov [evennum], eax      ;load value into evennum
-     cmp eax, 20             ;check if number is <20
-     jl increase_even        ;if <20 start over
-
-     mov eax, 1              ;sys_exit
-     int 0x80
-
-
-
+     mov ecx, 9       ;loop counter 
+                      ;counter starts at 9 since first 2 num is accounted for
+     mov eax, 0       ;start from 0 (first num in seq)
+     mov ebx, 1       ;load second number in fib seq to ebx
+     
+fib_loop:
+     add eax, ebx
+     mov edx, eax     ;store current number in edx
+     mov eax, ebx     ;move ebx to eax
+     mov ebx, edx     ;move curr val in edx to ebx
+     loop fib_loop
+    
+     mov [result],edx ;move curr value to final result
+     
+    mov eax,1         ;sys_exit
+    int 0x80
+     
 segment .bss
-    evennum resb 1
+    result  resb 2      ;final result
 ```
 
 ## Task 3
-```
+```assembly
 ;Question 3: define array with length 4 and type integer, find the largest element in the array
 
 section .text
