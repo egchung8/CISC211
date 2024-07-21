@@ -4,7 +4,7 @@
 ![Flowcharts-ActA](https://github.com/user-attachments/assets/6a6ae1a7-798c-4d8a-9559-e1a5ab6cd3b3)
 
 ## Task 1
-```
+```assembly
 ;Week 5 Activity A Task #1
 ;ths program generates a sequence of even numbers up to 20
 
@@ -32,7 +32,7 @@ segment .bss
 
 ## Task 2
 
-```
+```assembly
 ;Week 5 Activity A Task #2
 ;find the largest number among 5 integers
 
