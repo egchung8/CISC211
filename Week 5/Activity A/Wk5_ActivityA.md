@@ -1,5 +1,8 @@
 # Activity A
 
+## Flowchart
+![Flowcharts-ActA](https://github.com/user-attachments/assets/6a6ae1a7-798c-4d8a-9559-e1a5ab6cd3b3)
+
 ## Task 1
 ```
 ;Week 5 Activity A Task #1
