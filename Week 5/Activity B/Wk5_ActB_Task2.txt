@@ -1,22 +1,29 @@
-;Week 5 Activity A Task #2
-;ths program generates a sequence of even numbers up to 20
+;Week 5 ActivityB Task2
+;calculate final number of the first 10 fibonacci numbers starting from 0
+; 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
+; Fib Sequence: F(N) = F(N-1) + F(N-2)
+
 
 section .text
     global _start
-
+    
  _start:
-     mov eax, 0     ;start from 0
-
- increase_even:
-     add eax, 2
-     mov [evennum], eax      ;load value into evennum
-     cmp eax, 20             ;check if number is <20
-     jl increase_even        ;if <20 start over
-
-     mov eax, 1              ;sys_exit
-     int 0x80
-
-
-
+     mov ecx, 9       ;loop counter 
+                      ;counter starts at 9 since first 2 num is accounted for
+     mov eax, 0       ;start from 0 (first num in seq)
+     mov ebx, 1       ;load second number in fib seq to ebx
+     
+fib_loop:
+     add eax, ebx
+     mov edx, eax     ;store current number in edx
+     mov eax, ebx     ;move ebx to eax
+     mov ebx, edx     ;move curr val in edx to ebx
+     loop fib_loop
+    
+     mov [result],edx ;move curr value to final result
+     
+    mov eax,1         ;sys_exit
+    int 0x80
+     
 segment .bss
-    evennum resb 1
+    result  resb 2      ;final result
