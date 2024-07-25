@@ -1,4 +1,4 @@
-# Weekk 6 Activity A
+# Week 6 Activity A
 ## Flowchart
 ![flowchart](https://github.com/egchung8/CISC211/blob/main/Week%206/Activity%20A/Wk6_%20ActivityA.png)
 ## Code
