@@ -47,4 +47,4 @@ section .data
 ```
 ## Challenges
   The challenges I had doing this lab was figuring out at what step I should start the loop and if I should use the condition jl or jle. 
-  I had originally used jl since the value in eax should stop at 90 but noticed that the loop did not complete and Y was the last letter printed.
+  I had originally used jl since the value in eax should stop at 90 but noticed that the loop did not complete and Y was the last letter printed instead of Z.
