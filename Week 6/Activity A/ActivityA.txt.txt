@@ -1,0 +1,41 @@
+;Week 6 Activity A
+; generate English uppercase letters A - Z
+
+section .text
+    global _start:
+    
+_start:
+    mov eax, 65         ;65 is A in ASCII Dec
+
+increase: 
+    mov [res], eax      ;load eax into res for output
+    push eax            ;push eax value to save for later
+    mov ecx, res        ;load res into ecx for sys_write
+    
+    call output         ;print letter to console
+    mov ecx, newline    ;print new line
+    call output
+    
+    pop eax              ;restore eax value with letter
+    inc eax
+    cmp eax, 90          ;check that eax is <= 90 (Z)
+    jle increase
+    call exit            ;if eax is greater than 90 (Z) exit
+    
+    
+output:
+        mov edx,1       ;output length
+        mov ebx,1       ;stdout
+        mov eax,4       ;system call (sys_write)
+        int 0x80        ;interrupt kernel
+        ret
+      
+exit:
+        mov eax,1
+        int 0x80
+
+segment .bss
+        res resb 1
+        
+section .data
+        newline dd 10        ;in ASCII, the new line is decimal 10
