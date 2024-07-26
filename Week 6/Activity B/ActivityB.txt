@@ -1,0 +1,65 @@
+;Week6 Activity B
+;assign a number to a register/var, pass the num to a function
+;display thye result odd or even to the console
+;function should check whether the number is odd or even
+
+
+_evenodd:
+    push ebp
+    mov ebp, esp             ;ebp points to current stack of function
+
+    sub esp, 16              ;makes space on stack
+
+    mov eax, DWORD[ebp+16]   ;loads var into eax
+    test eax, 1              ;check if even or odd
+    jz even
+
+    mov eax, DWORD[ebp+8]    ;if not even move 'odd' to eax
+
+    mov ecx, eax              ;message will be in eax
+    call output
+    mov ecx, newline
+    call output
+
+    leave
+    ret
+
+even:
+     mov eax, DWORD[ebp+12]   ;load 'even' to ecx
+
+     mov ecx, eax              ;message will be in eax
+     call output
+     mov ecx, newline
+     call output
+     ret
+
+
+
+section _start:
+    global _start:
+
+ _start:
+     push DWORD[var]
+     push msg_evn
+     push msg_odd
+     call _evenodd             ;call function
+     
+     call exit
+
+output:
+        mov edx,4              ;output length
+        mov ebx,1              ;stdout
+        mov eax,4              ;system call (sys_write)
+        int 0x80               ;interrupt kernel
+        ret
+
+exit:
+        mov eax,1
+        int 0x80
+
+
+section .data
+    var DD 13                  ;double word variable to check if even or odd
+    msg_evn DD 'even'         ;even message
+    msg_odd DD 'odd'          ;odd message
+    newline DD 10             ;new line is decimal 10
