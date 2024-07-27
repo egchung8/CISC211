@@ -1,0 +1,28 @@
+;Quiz3
+;Write an Assembly code that calculates a factorial of a pre-defined number
+;ex: x=5 would be 5x4x3x2x1 = 120
+;ex: x = 6 would be 720
+
+section .text
+    global _start
+
+_start:
+    mov ecx, [num]     ;move num into ecx counter
+    mov eax, 1         ;initalize eax with 1
+
+factoral:
+    mov edx, ecx
+    mul edx
+    loop factoral
+
+    mov [result], eax
+
+    mov eax, 1
+    int 0x80
+
+
+segment .bss
+    result resb 1
+
+section .data
+    num DD 6        ;num to calculate factorial
