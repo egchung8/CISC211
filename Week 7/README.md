@@ -1,0 +1,75 @@
+# Week 7
+
+## Code
+```Assembly
+;Week 7 Activity
+
+section .text
+        global  _start
+ 
+_start:
+        ; create 'quotes.txt' file
+        mov     ecx, 0711o          ; set r,w,e permissions (octal format)
+        mov     ebx, filename       ; filename to create
+        mov     eax, 8              ; invoke SYS_CREAT (kernel opcode 8)
+        int     0x80                ; call the kernel
+
+        ; file open operation
+        mov eax, 5                  ; sys_open
+        mov ebx, filename           ; file name
+        mov ecx, 1                  ; write-only file access mode
+        mov edx, 0777o              ; sets permissions to all
+        int 0x80
+
+        mov [fd_out], eax           ; load returned file descriptor in fd_out
+
+        ; file write operation
+        mov eax, 4                  ; sys_write call
+        mov ebx, [fd_out]           ; load file descriptor
+        mov ecx, text1              ; write text
+        mov edx, len1               ; number of bytes (char) written
+        int 0x80
+
+        ; find end of file
+        mov eax, 19                 ; sys_lseek
+        mov ebx, [fd_out]
+        mov ecx, 0                  ; offset value
+        mov edx, 2                  ; reference position - 2 for end of file
+        int 0x80
+
+        ; append text2 to the same file
+        mov eax, 4                  ; sys_write
+        mov ebx, [fd_out]           ; load file descriptor in ebx
+        mov ecx, text2              ; text to append
+        mov edx, len2               ; length of text2
+        int 0x80             
+
+        mov [fd_out], eax           ;sys call return
+
+        ; file close operation
+        mov eax, 6
+        mov ebx, [fd_out]
+        int 0x80
+
+        ; exit
+        mov eax, 1
+        int 0x80
+
+
+section .bss
+        fd_out resb 1
+
+section .data
+filename db 'quotes.txt', 0h       ; the filename to create
+text1    db  'To be, or not to be, that is the question.', 0xa, 'A fool thinks himself to be wise, but a wise man knows himself to be a fool.', 0xa
+len1     equ $ -text1
+text2    db  'Better three hours too soon than a minute too late.', 0xa, 'No legacy is so rich as honesty.'
+len2     equ $ -text2
+```
+
+## Challenges
+The main challenges I had for this lab was understanding when to use ```mov [fd_out], eax```. I originally thought I had to move eax into 
+fd_out after every write operation but noticed that the second set of quotes would not get written to the file if I did that. It also took me a while to figure out what value
+to move into the edx register for each write operation. I eventually remembered that the legnth of the string goes in edx and I could use ```len eq $ - [text1]``` to calculate the length of the
+text instead of coutning each character manually. However, this led me to have other issues with ```NULL``` getting included before and after the second quotes. This was because ```0xa,0h``` was
+being included in the string length.
