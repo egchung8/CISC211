@@ -1,0 +1,41 @@
+;Quiz 4
+;Assign 3 integers to variable x,y,z and write a function that adds three variables
+;and assigns the result to the 'result' variable.
+
+; function to add x,y,z variables
+_addition:
+    push ebp
+    mov ebp, esp              ;esp points to current stack
+
+    mov eax, DWORD[ebp+16]    ;load x variable into eax
+    add eax, DWORD[ebp+12]    ;add y variable to eax
+    add eax, DWORD[ebp+8]     ;add y variable to eax
+
+    mov [result], eax         ;load eax into result
+
+    leave                     ;deallocates memory
+    ret                       ;return
+
+section .text:
+    global _start:
+
+_start:
+    push DWORD[x]
+    push DWORD[y]
+    push DWORD[z]
+
+    call _addition      ;call function to add variables
+
+    call exit           ;call exit
+
+exit:
+    mov eax, 1          ;sys exit
+    int 0x80
+
+segment .bss
+    result resb 1
+
+section .data
+    x DD 1
+    y DD 10
+    z DD 5
