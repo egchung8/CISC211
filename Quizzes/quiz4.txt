@@ -9,7 +9,7 @@ _addition:
 
     mov eax, DWORD[ebp+16]    ;load x variable into eax
     add eax, DWORD[ebp+12]    ;add y variable to eax
-    add eax, DWORD[ebp+8]     ;add y variable to eax
+    add eax, DWORD[ebp+8]     ;add z variable to eax
 
     mov [result], eax         ;load eax into result
 
