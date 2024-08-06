@@ -17,7 +17,7 @@ _addition:
     ret                       ;return
 
 section .text:
-    global _start:
+    global _start
 
 _start:
     push DWORD[x]
