@@ -78,11 +78,11 @@ _xorDecryp:
     mov eax, [encryption + edx]        ;loads each byte (character) from msg string into eax 
     mov ebx, [key + edx]               ;loads each byte (character) from key string into ebx
     xor eax, ebx                       ;bitwise xor operation
-    mov [decryption + edx], eax        ;saves indexed byte into same byte for encryption variable
+    mov [decryption + edx], eax        ;saves indexed byte into same byte for decryption variable
     inc edx                            ;increase counter for indexing through string
     loop _xorDecryp
 
-    ;print line 3 with enycrption
+    ;print line 4 with decryption
     mov eax, 4       
     mov ebx, 1         
     mov ecx, decryption          
