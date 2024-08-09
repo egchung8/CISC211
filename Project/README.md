@@ -1,6 +1,9 @@
 # Project 
 ## Task 1: Encryption and Decryption
 
+### Flowdiagram
+![flow](https://github.com/egchung8/CISC211/blob/main/Project/project2flowdiagram.pdf)
+
 ### Output.txt
 ```
 Plain text: HELLO
